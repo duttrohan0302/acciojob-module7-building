@@ -18,7 +18,11 @@ let computerScore = 0;
 
 let gameActive = false;
 
-
+const mapCodeToWinner = {
+    0 : "Draw!",
+    1: "Player won!",
+    2: "Computer won"
+}
 
 // main functions
 
@@ -55,15 +59,15 @@ const playRound = (ps, cs) => {
     }else if(ps === "rock" && cs === "scissors"){
         return 1;
     }else if(ps === "rock" && cs === "paper"){
-        return -1;
+        return 2;
     }else if(cs === "rock" && ps === "scissors"){
-        return -1;
+        return 2;
     }else if(cs === "rock" && ps === "paper"){
         return 1;
     }else if(ps === "scissors" && cs === "paper"){
         return 1;
     }else if(ps === "paper" && cs === "scissors"){
-        return -1;
+        return 2;
     }
 
     // if(ps===cs){
@@ -79,7 +83,7 @@ const getMeWinner = playerSelection => {
 
     let winner = playRound(playerSelection,computerSelection);
 
-    winner = winner === 0 ? "Draw!" : (winnner===1 ? "Player won!" : "Computer won!");
+    // winner = mapCodeToWinner[winner];
 
     return ({
         winner: winner,
@@ -87,21 +91,84 @@ const getMeWinner = playerSelection => {
     })
 }
 
+const displaySelection = (whoIsPlaying, selection, result) => {
+    if(whoIsPlaying === "player"){
+        playerSelect.innerHTML = `<i class="fas fa-hand-${selection}"></i>`
 
+        if(result=== 1){
+            playerSelect.style.color = "green";
+            computerSelect.style.color = "red"
+        }
+    }else{
+        computerSelect.innerHTML = `<i class="fas fa-hand-${selection}"></i>`
+        if(result=== 2){
+            playerSelect.style.color = "red";
+            computerSelect.style.color = "green"
+        }
+    }
+
+    if(result===0){
+        computerSelect.style.color = ""
+        playerSelect.style.color = ""
+    }
+}
+
+const scoreBoard = result => {
+    if(result === 1){
+        playerScore++;
+
+    }else if(result === 2){
+        computerScore++;
+
+    }
+    pScore.innerText = playerScore;
+    cScore.innerText = computerScore;
+}
+
+
+const gameFinished = () => {
+    if(playerScore===5 || computerScore===5){
+        return true;
+    }
+    return false;
+}
+
+const reset = () => {
+    setTimeout(()=>{
+        playerScore=0;
+        computerScore=0;
+        computerSelect.innerHTML=""
+        playerSelect.innerHTML=""
+        pScore.innerText = 0;
+        cScore.innerText = 0;
+        gameActive = false;
+        message.innerText = "Choose rock, paper or scissors to play again!"
+    }, 3000)
+}
+const whoWon = () => {
+    if(gameFinished()){
+        if(playerScore===5){
+            message.innerText = "Player is the winner! Congratulations!"
+        }else{
+            message.innerText = "Computer is the winner! Shame on you!"
+        }
+        reset()
+    }
+}
 const gameFlow = (playerSelection) => {
     const winnerObject = getMeWinner(playerSelection);
 
-    const result = winnerObject.winner;
+    const results = winnerObject.winner;
 
-    // TODO => COMPLETE THIS FUNC
     const computerMove = winnerObject.compMove;
 
     displaySelection('player', playerSelection, results);
     displaySelection('computer', computerMove, results);
 
-    scoreBoard(result)
+    scoreBoard(results)
 
-    message.innerText = result;
+    
+    message.innerText = mapCodeToWinner[results];
 
     whoWon()
 }
