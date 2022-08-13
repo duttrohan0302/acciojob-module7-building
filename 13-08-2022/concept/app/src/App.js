@@ -22,6 +22,30 @@ class Initialize extends React.Component{
     )
   }
 }
+
+class RenderExample extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      surname:"Dutt"
+    }
+  }
+
+  render(){
+    if(this.props.name){
+      return(
+        <div>
+          The name is {this.props.name}
+        </div>
+      )
+    }
+    return(
+      <div>
+        The surname is {this.state.surname}
+      </div>
+    )
+  }
+}
 class App extends React.Component{
 
   render(){
@@ -29,9 +53,13 @@ class App extends React.Component{
       <p>
         Basic App
       </p>
-      <Initialize />
+      {/* The lifecycle methods of initialize component will run now(inside the render func of App component) */}
+      <Initialize /> 
+      <RenderExample name={'Rohan'}/>
+      <RenderExample/>
     </div>
   }
 }
+
 
 export default App;

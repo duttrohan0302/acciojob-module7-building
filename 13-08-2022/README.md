@@ -28,3 +28,26 @@
   - because web apis calls takes time to return result and by that time constructor method will complete it's execution
 - Method binding can also be done in the constructor
   - this.handleSomething = this.handleSomething.bind(this)
+
+#### componentWillMount
+- We can update the state 
+- Connection to the database can be established here
+- This is placed between constructor and render
+- Legacy method and React recommends not to use it in v.17 and above
+- This method is rarely used. Whatever required by this time of life of component is already done by constructor or will be done by render method.
+
+#### render
+- This is the only required method in a cass component
+- Executing this render method gives React an idea of what needs to updated on the actual DOM
+- React keeps an original copy of DOM, calls it virtual DOM
+- Changes happen on the virtual DOM, in the end React compares the virtual DOM with the original to change the latter.
+- This method structures and prepares your jsxx code to return to DOM.
+
+- Examines this.props & this.state  and return one of the following
+  - React elements created via JSX, for eg. `<div></div>` or `<Initialize />`
+  - Arrays & fragments(<></>)
+  - Strings and numbers (Rendered as simple text node)
+  - Booleans and null
+
+- The render() function should be pure, it does not modify the component state. It returns the same result every time it's invoked & it does not directly interact with the browser.
+- If you need to interact with the browser, do your work in componentDidMount()
