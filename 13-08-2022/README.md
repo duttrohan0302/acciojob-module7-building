@@ -51,3 +51,10 @@
 
 - The render() function should be pure, it does not modify the component state. It returns the same result every time it's invoked & it does not directly interact with the browser.
 - If you need to interact with the browser, do your work in componentDidMount()
+
+#### componentDidMount
+- Called after render
+- Execution of this method means component is successfully mounted or created on real DOM
+- Here we can do side effects like using timers, calling external api, adding event listeners
+- This method, like componentWillMount is only called once in the lifecycle of the stateful component
+- You can use setState here, but caution as it can trigger render method again to update DOM

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Initialize extends React.Component{
 
@@ -32,6 +33,9 @@ class RenderExample extends React.Component{
   }
 
   render(){
+    // Don't do this
+    // this.setState({surname:"Something else"})
+
     if(this.props.name){
       return(
         <div>
@@ -42,6 +46,43 @@ class RenderExample extends React.Component{
     return(
       <div>
         The surname is {this.state.surname}
+      </div>
+    )
+  }
+}
+
+class WebAPIEx extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      users: {},
+      isUsersLoaded: false
+    }
+  }
+
+  componentDidMount(){
+    axios.get('https://jsonplaceholder.typicode.com/users')
+    .then(result=>{
+      this.setState({
+        users:result.data,
+        isUsersLoaded: true
+      })
+    })
+  }
+
+  render(){
+    if(!this.state.isUsersLoaded){
+      return <div>Loading...</div>
+    }
+    return(
+      <div>
+        <ul>
+          {
+            this.state.users.map((user,index)=>(
+              <li key={index} >{user.name}</li>
+            ))
+          }
+        </ul>
       </div>
     )
   }
@@ -57,6 +98,7 @@ class App extends React.Component{
       <Initialize /> 
       <RenderExample name={'Rohan'}/>
       <RenderExample/>
+      <WebAPIEx />
     </div>
   }
 }
