@@ -58,6 +58,7 @@ class WebAPIEx extends React.Component{
       users: {},
       isUsersLoaded: false
     }
+    this.removeUser = this.removeUser.bind(this)
   }
 
   componentDidMount(){
@@ -84,6 +85,11 @@ class WebAPIEx extends React.Component{
     console.log("Component Did Update")
   }
 
+  removeUser(id){
+    this.setState({
+      users: this.state.users.filter(user=>user.id!==id)
+    })
+  }
   render(){
     if(!this.state.isUsersLoaded){
       return <div>Loading...</div>
@@ -93,7 +99,7 @@ class WebAPIEx extends React.Component{
         <ul>
           {
             this.state.users.map((user,index)=>(
-              <li key={index} >{user.name} {' '} <span style={{cursor:"pointer"}}>x</span></li>
+              <li key={index} >{user.name} {' '} <span onClick={()=>this.removeUser(user.id)} style={{cursor:"pointer"}}>x</span></li>
             ))
           }
         </ul>

@@ -63,3 +63,23 @@
 - shouldComponentUpdate()
 - componentWillUpdate()
 - componentDidUpdate()
+
+### Other Lifecycle methods
+- componentWillUnmount()
+- static getDerivedStateFromProps()
+- getSnapshotBeforeUpdate() this is to be used in place of componentWillUpdate()
+
+
+## FlowChart
+- Component
+    - constructor(props) - Initialization
+    - componentWillMount()
+    - render()
+    - componentDidMount()
+- State/Props Updates
+    - shouldComponentUpdate()
+        - if this returns false No re-rendering happens
+    - componentWillUpdate()
+    - render()
+    - componentDidUpdate()
+- componentWillUnmount()
