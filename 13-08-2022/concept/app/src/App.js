@@ -70,6 +70,20 @@ class WebAPIEx extends React.Component{
     })
   }
 
+  shouldComponentUpdate(nextProps, nextState){
+    const boolShouldComponentUpdate = this.state.users!==nextState.users
+    console.log("Should component update",boolShouldComponentUpdate)
+    return boolShouldComponentUpdate
+  }
+
+  // componentWillUpdate(nextProps, nextState){
+  //   console.log("Component will update")
+  // }
+
+  componentDidUpdate(prevProps,prevState){
+    console.log("Component Did Update")
+  }
+
   render(){
     if(!this.state.isUsersLoaded){
       return <div>Loading...</div>
@@ -79,7 +93,7 @@ class WebAPIEx extends React.Component{
         <ul>
           {
             this.state.users.map((user,index)=>(
-              <li key={index} >{user.name}</li>
+              <li key={index} >{user.name} {' '} <span style={{cursor:"pointer"}}>x</span></li>
             ))
           }
         </ul>

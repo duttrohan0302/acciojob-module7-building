@@ -58,3 +58,8 @@
 - Here we can do side effects like using timers, calling external api, adding event listeners
 - This method, like componentWillMount is only called once in the lifecycle of the stateful component
 - You can use setState here, but caution as it can trigger render method again to update DOM
+
+### Updating 
+- shouldComponentUpdate()
+- componentWillUpdate()
+- componentDidUpdate()
